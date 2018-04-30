@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  {% if error %}
+  <div class="p-3 mb-2 bg-warning text-dark"><h4>Import Error</h4></div>
+    <!-- Error importing data. -->
+    {% for err in error %}
+        <p>{{ err }}</p>
+    {% endfor %}
+  {% else %}  
+    Successful import of {{ records }} records.
+        {% if ids %}
+        <p>{{ ids }}</p>
+        {% endif %}
+        {% if slug %}
+        <p>{{ slug }}</p>
+        {% endif %}
+  {% endif %}
+  
+{% endblock %}

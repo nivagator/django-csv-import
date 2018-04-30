@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% load humanize %}
+
+{% block content %}
+<main class="col-md-12 py-md-3 bd-content" role="main">
+    <h2>Import History</h2>
+    {% if slugs %}
+        {% for slug in slugs %}
+            <li><a href="{% url 'validate' slug %}">{{ slug }}</a></li>
+        {% endfor %}
+    {% endif %}
+    {% if is_paginated %}
+  {% if page_obj.has_previous %}
+      <span><a href="?page={{ page_obj.previous_page_number }}">Previous</a></span> - 
+  {% endif %}
+      <span>Page {{ page_obj.number }} of {{page_obj.paginator.num_pages }}</span>
+  {% if page_obj.has_next %}
+  - <span><a href="?page={{ page_obj.next_page_number }}">Next</a></span>
+  {% endif %}
+{% endif %}
+</main>
+{% endblock %}

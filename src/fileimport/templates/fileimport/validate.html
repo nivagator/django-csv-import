@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% load humanize %}
+
+{% block content %}
+<!-- <p>This is the validate.html page</p> -->
+<main class="col-md-12 py-md-3 bd-content" role="main">
+<h2>{% if page_title %}{{ page_title}}{% else %}default page title{% endif %}</h2>
+{% if object_list %}
+  <table class="table table-sm table-striped table-hover"> 
+    <thead>
+      <th scope="col">ID</th>
+      <th scope="col">Loan Number</th>
+      <th scope="col">Funded Date</th>
+      <th scope="col">Borrower</th>
+      <th scope="col">Loan Amount</th>
+      <th scope="col">Advance Amount</th>
+      <th scope="col">Warehouse Bank</th>
+      <th scope="col">Investor</th>
+      <th scope="col">Commitment Type</th>
+    </thead>
+    <tbody>
+      {% for obj in object_list %}
+        <tr>
+          <th scope="row">{{obj.id}}</th>
+          <td class="text-right">{{obj.loan_num}}</td>
+          <td>{{obj.funded_dt}}</td>
+          <td>{{obj.borrower_nm}}</td>
+          <td class="text-right">{{obj.loan_amt|intcomma}}</td>
+          <td class="text-right">{{obj.advance_amt|intcomma}}</td>
+          <td>{{obj.warehouse_bank}}</td>
+          <td>{{obj.investor_nm}}</td>
+          <td>{{obj.commitment_type}}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endif %}
+{% if is_paginated %}
+  {% if page_obj.has_previous %}
+      <span><a href="?page={{ page_obj.previous_page_number }}">Previous</a></span> - 
+  {% endif %}
+      <span>Page {{ page_obj.number }} of {{page_obj.paginator.num_pages }}</span>
+  {% if page_obj.has_next %}
+  - <span><a href="?page={{ page_obj.next_page_number }}">Next</a></span>
+  {% endif %}
+{% endif %}
+</main>
+{% endblock %}
